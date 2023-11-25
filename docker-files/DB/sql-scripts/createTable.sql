@@ -1,0 +1,1 @@
+CREATE TABLE emp (name VARCHAR(10), phone VARCHAR(10));
