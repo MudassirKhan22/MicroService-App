@@ -29,13 +29,30 @@ pipeline{
                             sh "ssh ${BUILD_SERVER_IP} sudo docker build -t ${DB_IMAGE_NAME} DB"
                             sh "ssh ${BUILD_SERVER_IP} sudo docker login -u ${USERNAME} -p ${PASSWORD}"
                             sh "ssh ${BUILD_SERVER_IP} sudo docker push ${DB_IMAGE_NAME}"
-
                         }
 
                     }
                 }
             }
 
+        }
+
+        stage('DEPLOY DOCKER CONTAINER USING DOCKER-COMPOSE'){
+            steps{
+                script{
+                    sshagent(['my-slave-private-key']){
+                        withCredentials([usernamePassword(credentialsId: 'DockerHub-Credentilas', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]){
+
+                            sh "ssh -o strictHostKeyChecking=no -r Docker-Compose ${DEPLOY_SERVER_IP}:/home/ec2-user"
+                            sh "ssh ${DEPLOY_SERVER_IP} sudo bash Docker-Compose/docker-script.sh"
+                            sh "ssh ${DEPLOY_SERVER_IP} sudo docker login -u ${USERNAME} -p ${PASSWORD}"
+                            sh "ssh ${DEPLOY_SERVER_IP} sudo bash Docker-Compose/docker-compose-script.sh"
+                        }
+
+                    }
+
+                }
+            }
         }
     }
 }
