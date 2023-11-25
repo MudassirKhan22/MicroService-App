@@ -44,7 +44,7 @@ pipeline{
                     sshagent(['my-slave-private-key']){
                         withCredentials([usernamePassword(credentialsId: 'DockerHub-Credentilas', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]){
 
-                            sh "ssh -o strictHostKeyChecking=no -r Docker-Compose ${DEPLOY_SERVER_IP}:/home/ec2-user"
+                            sh "ssh -o strictHostKeyChecking=no -r docker-files/Docker-Compose ${DEPLOY_SERVER_IP}:/home/ec2-user"
                             sh "ssh ${DEPLOY_SERVER_IP} sudo bash Docker-Compose/docker-script.sh"
                             sh "ssh ${DEPLOY_SERVER_IP} sudo docker login -u ${USERNAME} -p ${PASSWORD}"
                             sh "ssh ${DEPLOY_SERVER_IP} sudo bash Docker-Compose/docker-compose-script.sh"
