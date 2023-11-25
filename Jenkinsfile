@@ -38,6 +38,7 @@ pipeline{
         }
 
         stage('DEPLOY DOCKER CONTAINER USING DOCKER-COMPOSE'){
+            agent any
             steps{
                 script{
                     sshagent(['my-slave-private-key']){
