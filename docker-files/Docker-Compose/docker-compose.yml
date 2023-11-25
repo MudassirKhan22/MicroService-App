@@ -1,13 +1,13 @@
 version: "3"
 services:
     php:
-      image: mudassir12/php:${BUILD_NUMBER}
+      image: ${PHP_IMAGE_NAME}
       ports:
       - 8081-8082:80
       depends_on:
         - mysql
     mysql:
-      image: mudassir12/mysql:${BUILD_NUMBER}
+      image: ${DB_IMAGE_NAME}
       volumes:
       - db_data:/var/lib/mysql
       environment:

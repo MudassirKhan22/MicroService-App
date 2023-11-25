@@ -6,6 +6,7 @@ pipeline{
         DEPLOY_SERVER_IP= "ec2-user@3.110.167.40"
         PHP_IMAGE_NAME= "mudassir12/php:${BUILD_NUMBER}"
         DB_IMAGE_NAME= "mudassir12/mysql:${BUILD_NUMBER}"
+        BUILD_NUMBER= env.BUILD_NUMBER
 
     }
 
@@ -48,6 +49,9 @@ pipeline{
                             sh "ssh ${DEPLOY_SERVER_IP} sudo bash Docker-Compose/docker-script.sh"
                             sh "ssh ${DEPLOY_SERVER_IP} sudo docker login -u ${USERNAME} -p ${PASSWORD}"
                             sh "ssh ${DEPLOY_SERVER_IP} sudo bash Docker-Compose/docker-compose-script.sh"
+                            sh "ssh '${DEPLOY_SERVER_IP}' sudo docker-compose -f 'Docker-Compose/docker-compose.yml' up -d"
+
+
                         }
 
                     }
