@@ -6,7 +6,7 @@ pipeline{
         DEPLOY_SERVER_IP= "ec2-user@3.110.167.40"
         PHP_IMAGE_NAME= "mudassir12/php:${BUILD_NUMBER}"
         DB_IMAGE_NAME= "mudassir12/mysql:${BUILD_NUMBER}"
-        BUILD_NUMBER= env.BUILD_NUMBER
+        BUILD_NUMBER= "env.BUILD_NUMBER"
 
     }
 
