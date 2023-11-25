@@ -1,13 +1,13 @@
 version: "3"
 services:
     php:
-      image: ${PHP_IMAGE_NAME}
+      image: ${DOCKER_PHP_IMAGE}
       ports:
       - 8081-8082:80
       depends_on:
         - mysql
     mysql:
-      image: ${DB_IMAGE_NAME}
+      image: ${DOCKER_DB_IMAGE}
       volumes:
       - db_data:/var/lib/mysql
       environment:
